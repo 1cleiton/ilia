@@ -1,0 +1,33 @@
+### Variáveis globais
+@url = http://localhost:8000/api/v1
+@email = "john@mail.com"
+@password = "password@123"
+@id = {{SignUp.response.body.id}}
+@token = {{SignIn.response.body.token}}
+
+
+### Register a new customer
+# @name SignUp
+POST {{url}}/auth/register/
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": {{email}},
+    "password": {{password}},
+    "password_confirm": "password@123"
+}
+
+
+### Make login
+# @name SignIn
+POST {{url}}/auth/login/
+Content-Type: application/json
+
+{
+    "email": {{email}},
+    "password": {{password}}
+}
+
+### Get customer by ID
+GET {{url}}/customer/{{id}}
