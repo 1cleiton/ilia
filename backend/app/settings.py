@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "django_celery_results",
     "authentication",
+    "orders",
 ]
 
 REST_FRAMEWORK = {
@@ -96,21 +97,6 @@ WSGI_APPLICATION = "app.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-# DATABASES = {
-#     "default": env.db_url(
-#         "DATABASE_DEFAULT_URL",
-#         default=env.str("DATABASE_URL", default="sqlite:///db.sqlite3"),
-#     ),
-# }
-
 
 url = urlparse(os.environ.get("DATABASE_URL"))
 
