@@ -43,7 +43,6 @@ class RegisterView(APIView):
                 email=serialized_data.validated_data["email"],
                 username=serialized_data.validated_data["email"],
                 password=serialized_data.validated_data["password"],
-                # first_name=serialized_data.validated_data["name"],
                 name=serialized_data.validated_data["name"],
             )
         except Exception as e:

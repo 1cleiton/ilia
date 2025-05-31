@@ -1,5 +1,5 @@
 ### Variáveis globais
-@url = http://localhost:8000/api/v1
+@url = http://localhost:8001/api/v1
 @email = "john@mail.com"
 @password = "password@123"
 @id = {{SignUp.response.body.id}}
@@ -31,3 +31,36 @@ Content-Type: application/json
 
 ### Get customer by ID
 GET {{url}}/customer/{{id}}
+
+### Create order
+# @name CreateOrder
+POST {{url}}/orders/
+Content-Type: application/json
+Authorization: Token {{token}}
+
+{
+    "customer_id": 1,
+    "items": [
+        {
+            "id": 1,
+            "quantity": 2
+        },
+        {
+            "id": 2,
+            "quantity": 1
+        }
+    ]
+}
+
+### Get order by ID
+# @name GetOrder
+GET {{url}}/orders/16
+Content-Type: application/json
+Authorization: Token {{token}}
+### Get all orders
+
+# @name GetAllOrders
+GET {{url}}/orders?customer_id=1
+Content-Type: application/json
+Authorization: Token {{token}}
+
