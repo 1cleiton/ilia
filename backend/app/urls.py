@@ -19,6 +19,14 @@ urlpatterns = [
         order_views.OrderDetailView.as_view(),
         name="order-detail",
     ),
+    path(
+        "api/v1/products/", order_views.ProductListView.as_view(), name="product-list"
+    ),
+    path(
+        "api/v1/products/<int:product_id>",
+        order_views.ProductDetailView.as_view(),
+        name="product-detail",
+    ),
 ]
 
 urlpatterns += router.urls

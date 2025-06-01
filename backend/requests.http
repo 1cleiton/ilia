@@ -54,13 +54,26 @@ Authorization: Token {{token}}
 
 ### Get order by ID
 # @name GetOrder
-GET {{url}}/orders/16
+GET {{url}}/orders/1
 Content-Type: application/json
 Authorization: Token {{token}}
 ### Get all orders
 
 # @name GetAllOrders
-GET {{url}}/orders?customer_id=1
+GET {{url}}/orders?customer_id=1&offset=10&limit=15
 Content-Type: application/json
 Authorization: Token {{token}}
+
+### Get all products
+# @name GetAllProducts
+GET {{url}}/products
+Content-Type: application/json
+Authorization: Token {{token}}
+
+### Get product by ID
+# @name GetProduct
+GET {{url}}/products/1
+Content-Type: application/json
+Authorization: Token {{token}}
+
 

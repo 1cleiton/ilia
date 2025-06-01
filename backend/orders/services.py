@@ -1,4 +1,4 @@
-from orders.repositories import OrderRepository
+from orders.repositories import OrderRepository, ProductRepository
 
 
 class OrderService:
@@ -22,3 +22,16 @@ class OrderService:
             customer_id=customer_id, size=size, offset=offset, order_by=order_by
         )
         return orders
+
+
+class ProductService:
+    def __init__(self, repository: ProductRepository):
+        self.repository = repository
+
+    def get_product(self, product_id: int):
+        return self.repository.get_product(product_id)
+
+    def list_products(self, size: int = 20, offset: int = 0, order_by: str = "id"):
+        return self.repository.list_products(
+            size=size, offset=offset, order_by=order_by
+        )

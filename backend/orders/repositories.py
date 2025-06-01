@@ -44,3 +44,14 @@ class OrderRepository:
             return order
         except Order.DoesNotExist:
             raise ValueError("O pedido informado não existe")
+
+
+class ProductRepository:
+    def get_product(self, product_id: int):
+        try:
+            return Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            raise ValueError("O produto informado não existe")
+
+    def list_products(self, size: int = 20, offset: int = 0, order_by: str = "id"):
+        return Product.objects.all().order_by(order_by)[offset : offset + size]

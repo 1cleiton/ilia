@@ -33,3 +33,12 @@ class OrderOutputSerializer(serializers.Serializer):
 
     def get_total_price(self, obj):
         return sum(item["total_price"] for item in obj.items.values("total_price"))
+
+
+class ProductOutputSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    name = serializers.CharField(max_length=240, read_only=True)
+    price = serializers.DecimalField(max_digits=10, decimal_places=2, read_only=True)
+    description = serializers.CharField(read_only=True, allow_blank=True)
+    image = serializers.URLField(read_only=True, allow_blank=True)
+    available_quantity = serializers.IntegerField(read_only=True)
