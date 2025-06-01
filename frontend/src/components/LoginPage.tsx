@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -34,7 +33,7 @@ const LoginPage: React.FC = () => {
 
                 if (token) {
 
-                    Cookies.set('authToken', token, { expires: 7, secure: true, sameSite: 'Strict' }); // Expira em 7 dias, seguro (HTTPS), SameSite Strict
+                    Cookies.set('authToken', token, { expires: 7, secure: true, sameSite: 'Strict' });
                     setMessage('Login realizado com sucesso!');
                     setIsError(false);
                     console.log('Login bem-sucedido. Token salvo nos cookies:', token);

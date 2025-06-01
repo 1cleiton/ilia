@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import ProductCard from './ProductCard';
+import type { Product } from '../types/product';
 
 const ProductListPage: React.FC = () => {
-    const [products, setProducts] = useState<any[] | null>(null);
+    const [products, setProducts] = useState<Product[] | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -17,35 +19,33 @@ const ProductListPage: React.FC = () => {
             const token = Cookies.get('authToken');
 
             if (!token) {
-
                 navigate('/login');
                 return;
             }
 
             try {
-
                 const response = await fetch('http://localhost:8001/api/v1/products', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Token ${token}`,
-
                     },
                 });
 
                 if (response.ok) {
-                    const data = await response.json();
-                    setProducts(data);
-                    console.log('Produtos obtidos:', data);
+                    const data: Product[] = await response.json();
+                    const cleanedData = data.map(p => ({
+                        ...p,
+                        price: parseFloat(p.price as any)
+                    }));
+                    setProducts(cleanedData);
                 } else if (response.status === 401 || response.status === 403) {
-
                     Cookies.remove('authToken');
                     navigate('/login');
                     setError('Sessão expirada ou não autorizada. Faça login novamente.');
                 } else {
                     const errorData = await response.json();
                     setError(`Erro ao carregar produtos: ${errorData.detail || response.statusText}`);
-                    console.error('Erro ao carregar produtos:', errorData);
                 }
             } catch (err) {
                 setError('Erro de conexão ao carregar produtos.');
@@ -58,10 +58,6 @@ const ProductListPage: React.FC = () => {
         fetchProducts();
     }, [navigate]);
 
-    const handleLogout = () => {
-        Cookies.remove('authToken');
-        navigate('/login');
-    };
 
     if (loading) {
         return (
@@ -88,19 +84,18 @@ const ProductListPage: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100 p-8">
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold text-gray-800">Lista de Produtos</h1>
-                <button
-                    onClick={handleLogout}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                >
-                    Sair
-                </button>
+        <div className="min-h-screen bg-gray-100 p-8 pt-4"> { }
+            <div className="max-w-screen-xl mx-auto">
+                <h1 className="text-4xl font-extrabold text-gray-800 mb-8 text-center">Nossos Produtos</h1>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {products.map((product) => (
+                        <ProductCard
+                            key={product.id}
+                            product={product}
+                        />
+                    ))}
+                </div>
             </div>
-            <pre className="bg-white p-4 rounded shadow-md text-sm overflow-auto max-w-4xl mx-auto">
-                {JSON.stringify(products, null, 2)}
-            </pre>
         </div>
     );
 };
