@@ -9,6 +9,7 @@ class CustomerManager(UserManager):
     def create_user(self, email, password, **extra_fields):
         email = self.normalize_email(email)
         user = Customer(email=email, **extra_fields)
+        user.username = email
         user.password = make_password(password)
         user.date_joined = datetime.datetime.now(datetime.timezone.utc)
         user.save(using=self._db)

@@ -14,13 +14,16 @@ class LoginView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
-        email = request.data["email"].lower()
-        password = request.data["password"]
+        email = request.data.get("email", None)
+        password = request.data.get("password", None)
 
-        customer = authenticate(request, email=email, password=password)
+        if not email or not password:
+            return Response({"error": "E-mail e senha são obrigatórios"}, status=400)
+
+        customer = authenticate(request, email=email.lower(), password=password)
 
         if not customer:
-            return Response({"error": "Invalid email or password"}, status=400)
+            return Response({"error": "E-mail ou senha inválidos"}, status=400)
 
         token = Token.objects.get_or_create(user=customer)
         customer.last_login = datetime.datetime.now(datetime.timezone.utc)
