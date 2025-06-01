@@ -9,3 +9,11 @@ export interface Product {
 export interface CartItem extends Product {
     quantity: number;
 }
+
+interface CartItem {
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+    image: string;
+}

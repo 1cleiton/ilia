@@ -11,12 +11,9 @@ interface CartContextType {
     getTotalItems: () => number;
 }
 
-
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-
 const CART_COOKIE_NAME = 'shoppingCart';
-
 
 interface CartProviderProps {
     children: React.ReactNode;
