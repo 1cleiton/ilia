@@ -9,7 +9,6 @@ from orders.serializers import (
     ProductOutputSerializer,
 )
 from orders.services import OrderService, ProductService
-from orders.tasks import import_products
 
 
 class OrderListCreateView(APIView):
@@ -54,11 +53,12 @@ class OrderListCreateView(APIView):
 
 class OrderDetailView(APIView):
     def get(self, request, order_id):
-        import_products()
         repository = OrderRepository()
 
         try:
-            order = OrderService(order_repository=repository).get_order(order_id)
+            order = OrderService(order_repository=repository).get_order(
+                order_id=order_id, customer_id=self.request.user.id
+            )
         except ValueError as err:
             return Response({"error": str(err)}, status=status.HTTP_404_NOT_FOUND)
 

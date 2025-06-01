@@ -11,8 +11,12 @@ class OrderService:
         )
         return order
 
-    def get_order(self, order_id):
+    def get_order(self, order_id, customer_id):
         order = self.order_repository.get_order(order_id)
+
+        if order.customer_id != customer_id:
+            raise ValueError("Pedido não pertence ao cliente informado")
+
         return order
 
     def list_orders(
