@@ -1,6 +1,7 @@
 services:
   web:
     build: .
+    container_name: web
     command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/app
@@ -12,6 +13,7 @@ services:
       - db
   web-debug:
     build: .
+    container_name: webdev
     command: sh -c "python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
@@ -26,6 +28,7 @@ services:
       - db
   db:
     image: postgres:17.1-alpine3.20
+    container_name: db
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
@@ -36,6 +39,7 @@ services:
       - "5432:5432"
   pgadmin:
     image: dpage/pgadmin4:latest
+    container_name: pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL=sysuser@mail.com
       - PGADMIN_DEFAULT_PASSWORD=syspasswd
@@ -45,6 +49,31 @@ services:
       - db
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+  worker:
+    build: .
+    container_name: celery_worker
+    command: celery -A app worker --loglevel=info
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+  beat:
+    build: .
+    container_name: celery_beat
+    command: celery -A app beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
 volumes:
   postgres_data:
   pgadmin_data:
