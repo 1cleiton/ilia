@@ -5,14 +5,17 @@ from authentication.serializers import CustomerSerializer
 
 class OrderProductSerializer(serializers.Serializer):
     id = serializers.IntegerField(required=False)
+    name = serializers.SerializerMethodField()
     quantity = serializers.IntegerField()
     total_price = serializers.DecimalField(
         max_digits=10, decimal_places=2, read_only=True
     )
 
+    def get_name(self, obj):
+        return obj.product.name if hasattr(obj, "product") else obj.get("name", "")
+
 
 class CreateOrderSerializer(serializers.Serializer):
-    customer_id = serializers.IntegerField()
     items = OrderProductSerializer(many=True)
 
     def validate_products(self, value):

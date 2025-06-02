@@ -64,7 +64,6 @@ class OrderTests(APITestCase):
 
     def test_create_order_success(self):
         payload = {
-            "customer_id": self.customer.id,
             "items": [
                 {"id": self.product1.id, "quantity": 2},
                 {"id": self.product2.id, "quantity": 2},
@@ -83,7 +82,6 @@ class OrderTests(APITestCase):
 
     def test_create_order_invalid_product(self):
         payload = {
-            "customer_id": self.customer.id,
             "items": [{"id": 9999, "quantity": 1}],
         }
         response = self.client.post(
@@ -97,7 +95,7 @@ class OrderTests(APITestCase):
         self.assertIn("error", response.data)
 
     def test_create_order_missing_fields(self):
-        payload = {"customer_id": self.customer.id}
+        payload = {}
         response = self.client.post(
             self.list_create_url,
             payload,

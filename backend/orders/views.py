@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -12,8 +12,10 @@ from orders.services import OrderService, ProductService
 
 
 class OrderListCreateView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request):
-        customer_id = request.query_params.get("customer_id")
+        customer_id = request.user.id
         size = int(request.query_params.get("size", 20))
         offset = int(request.query_params.get("offset", 0))
         order_by = request.query_params.get("order_by", "id")
@@ -36,7 +38,7 @@ class OrderListCreateView(APIView):
         serializer.is_valid(raise_exception=True)
 
         data = serializer.validated_data
-        customer_id = data["customer_id"]
+        customer_id = request.user.id
         products = data["items"]
 
         repository = OrderRepository()
@@ -52,6 +54,8 @@ class OrderListCreateView(APIView):
 
 
 class OrderDetailView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request, order_id):
         repository = OrderRepository()
 
@@ -67,6 +71,8 @@ class OrderDetailView(APIView):
 
 
 class ProductListView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request):
         size = int(request.query_params.get("size", 20))
         offset = int(request.query_params.get("offset", 0))
@@ -81,6 +87,8 @@ class ProductListView(APIView):
 
 
 class ProductDetailView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request, product_id):
         repository = ProductRepository()
         service = ProductService(repository=repository)

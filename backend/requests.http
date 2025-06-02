@@ -60,7 +60,7 @@ Authorization: Token {{token}}
 ### Get all orders
 
 # @name GetAllOrders
-GET {{url}}/orders?customer_id=1&offset=10&limit=15
+GET {{url}}/orders?customer_id=1&offset=0&limit=50
 Content-Type: application/json
 Authorization: Token {{token}}
 
