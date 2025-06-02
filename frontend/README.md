@@ -47,7 +47,7 @@ Primeiro, clone este repositório para o seu ambiente local:
 
 ```
 git clone https://github.com/1cleiton/ilia`
-cd ilia
+cd ilia/frontend
 ````
 
 2. Instalar as Dependências
