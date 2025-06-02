@@ -1,54 +1,87 @@
-# React + TypeScript + Vite
+🚀 Projeto de E-commerce Básico com React e Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é um projeto frontend de um e-commerce básico, desenvolvido com React e Vite, focado em demonstrar o fluxo de autenticação, listagem de produtos, carrinho de compras e histórico de pedidos.
 
-Currently, two official plugins are available:
+✨ Funcionalidades Incluídas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Esta aplicação oferece uma experiência de compra simplificada com as seguintes funcionalidades principais:
 
-## Expanding the ESLint configuration
+- Autenticação de Usuário: Sistema de login que gerencia a sessão do usuário através de cookies.
+- Listagem de Produtos: Exibe uma vitrine de produtos obtidos de um backend, com cards informativos e responsivos.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Carrinho de Compras:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- Adição de produtos ao carrinho com persistência dos itens em cookies do navegador.
+- Contador de itens no carrinho visível no cabeçalho.
+- Página dedicada ao carrinho para visualizar, ajustar quantidades e remover produtos.
+- Finalização de Compra: Envio do pedido para um endpoint de backend, utilizando os itens e quantidades do carrinho.
+
+Histórico de Pedidos: 
+
+- Página para consultar os pedidos anteriores do usuário, exibindo detalhes como ID, data, status e itens comprados.
+
+🛠️ Tecnologias Utilizadas
+
+- React: Biblioteca JavaScript para construção de interfaces de usuário.
+- Vite: Ferramenta de build moderna e rápida para projetos front-end.
+- TypeScript: Superset do JavaScript que adiciona tipagem estática.
+- Tailwind CSS: Framework CSS utilitário para estilização rápida e responsiva.
+- React Router DOM: Para gerenciamento de rotas e navegação na aplicação.
+- js-cookie: Para manipulação simplificada de cookies.
+- React Icons: Biblioteca de ícones populares para React.
+
+⚙️ Como Rodar o Projeto (Front-end)
+
+Para colocar o projeto em funcionamento na sua máquina, siga os passos abaixo:
+
+Pré-requisitos:
+
+- Certifique-se de ter o Node.js e o npm (ou Yarn) instalados na sua máquina.
+- Node.js (versão 20 ou superior recomendada)
+- npm (geralmente vem com o Node.js)
+
+1. Clonar o Repositório
+
+Primeiro, clone este repositório para o seu ambiente local:
+
+
+```
+git clone https://github.com/1cleiton/ilia`
+cd ilia
+````
+
+2. Instalar as Dependências
+
+Dentro da pasta do projeto, instale todas as dependências necessárias:
+
+```
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Configurar o Backend
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Este projeto frontend depende de um backend para autenticação, listagem de produtos e gerenciamento de pedidos. Certifique-se de que seu backend esteja rodando e acessível na URL http://localhost:8001.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+Os endpoints esperados são:
+
 ```
+POST http://localhost:8001/api/v1/auth/login
+GET http://localhost:8001/api/v1/products
+POST http://localhost:8001/api/v1/orders
+GET http://localhost:8001/api/v1/orders
+```
+
+4. Iniciar o Servidor de Desenvolvimento
+
+Após instalar as dependências e garantir que o backend esteja ativo, você pode iniciar o servidor de desenvolvimento do Vite:
+
+```
+npm run dev
+```
+
+5. Acessar a Aplicação
+
+A aplicação estará disponível em http://localhost:5173 (ou outra porta, se 5173 estiver em uso).
+
+Você será redirecionado para a página de login e, após autenticar, poderá navegar entre os produtos, adicionar itens ao carrinho, finalizar compras e visualizar seus pedidos.
+
