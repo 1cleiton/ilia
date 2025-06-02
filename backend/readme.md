@@ -6,22 +6,22 @@
 - [x] No authentication system (e.g., OAuth, JWT) is required—just basic user identification.
 
 ## Product Catalog
-- [ ] Fetch products from the **Fake Store API**.
-- [ ] Display product details:
-  - [ ] Title
-  - [ ] Image
-  - [ ] Price
-  - [ ] Quantity
-  - [ ] Description
+- [x] Fetch products from the **Fake Store API**.
+- [x] Display product details:
+  - [x] Title
+  - [x] Image
+  - [x] Price
+  - [x] Quantity
+  - [x] Description
 
 ## Shopping Cart
-- [ ] Users can **add products** to the cart.
-- [ ] Users can **remove products** from the cart.
-- [ ] The cart **persists during the session** (refreshing the page doesn’t clear it).
+- [x] Users can **add products** to the cart.
+- [x] Users can **remove products** from the cart.
+- [x] The cart **persists during the session** (refreshing the page doesn’t clear it).
 
 ## Order Submission
-- [ ] Users can review their cart and submit an order.
-- [ ] Simulate the order submission process and return a **success message** (no payment processing).
+- [x] Users can review their cart and submit an order.
+- [x] Simulate the order submission process and return a **success message** (no payment processing).
 
 ## Order History
 - [x] Users can view a list of their **past orders**.
@@ -33,11 +33,11 @@
 - [x] Backend persistence for storing order history.
 
 ## Responsive Layout
-- [ ] Create a **responsive layout**.
-- [ ] Use either:
+- [x] Create a **responsive layout**.
+- [x] Use either:
   - [ ] Pure CSS
-  - [ ] Tailwind CSS
+  - [x] Tailwind CSS
   - [ ] styled-components
 
 ## Testing
-- [ ] Write **unit tests** for the code.
+- [x] Write **unit tests** for the code.
