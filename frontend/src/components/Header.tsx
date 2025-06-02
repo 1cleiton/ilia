@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaClipboardList } from 'react-icons/fa';
 import Cookies from 'js-cookie';
 import { useCart } from '../context/CartContext';
 
@@ -22,6 +22,13 @@ const Header: React.FC = () => {
                 </h1>
 
                 <nav className="flex items-center space-x-6">
+                    <div
+                        className="relative cursor-pointer text-white hover:text-blue-200 transition-colors duration-200"
+                        onClick={() => navigate('/orders')}
+                    >
+                        <FaClipboardList className="h-7 w-7" />
+                        <span className="sr-only">Meus Pedidos</span>
+                    </div>
                     <div
                         className="relative cursor-pointer text-white hover:text-blue-200 transition-colors duration-200"
                         onClick={() => navigate('/cart')}

@@ -7,6 +7,7 @@ interface CartContextType {
     cartItems: CartItem[];
     addToCart: (product: Product) => void;
     removeFromCart: (productId: string) => void;
+    removeItem: (productId: string) => void;
     clearCart: () => void;
     getTotalItems: () => number;
 }
@@ -60,7 +61,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const removeFromCart = (productId: string) => {
         setCartItems((prevItems) => {
             const existingItem = prevItems.find((item) => item.id === productId);
-
             if (existingItem && existingItem.quantity > 1) {
                 return prevItems.map((item) =>
                     item.id === productId ? { ...item, quantity: item.quantity - 1 } : item
@@ -69,6 +69,10 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
                 return prevItems.filter((item) => item.id !== productId);
             }
         });
+    };
+
+    const removeItem = (productId: string) => {
+        setCartItems((prevItems) => prevItems.filter((item) => item.id !== productId));
     };
 
     const clearCart = () => {
@@ -83,6 +87,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         cartItems,
         addToCart,
         removeFromCart,
+        removeItem,
         clearCart,
         getTotalItems,
     };

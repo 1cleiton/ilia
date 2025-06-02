@@ -6,7 +6,7 @@ import type { CartItem } from '../types/product';
 import Cookies from 'js-cookie';
 
 const CartPage: React.FC = () => {
-    const { cartItems, addToCart, removeFromCart, clearCart } = useCart();
+    const { cartItems, addToCart, removeFromCart, removeItem, clearCart } = useCart();
     const navigate = useNavigate();
 
     const calculateTotal = () => {
@@ -15,14 +15,6 @@ const CartPage: React.FC = () => {
 
     const calculateItemSubtotal = (item: CartItem): string => {
         return (item.price * item.quantity).toFixed(2).replace('.', ',');
-    };
-
-    const removeItemCompletely = (productId: string) => {
-        let item = cartItems.find(i => i.id === productId);
-        while (item && item.quantity > 0) {
-            removeFromCart(productId);
-            item = cartItems.find(i => i.id === productId);
-        }
     };
 
     const handleCheckout = async () => {
@@ -133,7 +125,7 @@ const CartPage: React.FC = () => {
 
                                 <div className="text-center">
                                     <button
-                                        onClick={() => removeItemCompletely(item.id)}
+                                        onClick={() => removeItem(item.id)}
                                         className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors duration-200"
                                         aria-label="Remover item"
                                     >
